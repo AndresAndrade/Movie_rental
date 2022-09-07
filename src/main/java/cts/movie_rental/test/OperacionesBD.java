@@ -9,7 +9,8 @@ import java.sql.Statement;
 
 public class OperacionesBD {
     public static void main(String[] args) throws SQLException {
-        listarPeliculas();
+        //listarPeliculas();
+        actualizarPelicula(1, "Fantasía/Romance");
     }
 
     public static void actualizarPelicula(int id, String genero) throws SQLException {
