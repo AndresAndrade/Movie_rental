@@ -1,6 +1,6 @@
 package cts.movie_rental.test;
 
-import cts.movie_rental.beans.Peliculas;
+import cts.movie_rental.beans.Pelicula;
 import cts.movie_rental.connection.DBConnection;
 
 import java.sql.ResultSet;
@@ -43,8 +43,8 @@ public class OperacionesBD {
                 int copias = rs.getInt("copias");
                 boolean novedad = rs.getBoolean("novedad");
 
-                Peliculas peliculas = new Peliculas(id, titulo, genero, autor, copias, novedad);
-                System.out.println(peliculas);
+                Pelicula pelicula = new Pelicula(id, titulo, genero, autor, copias, novedad);
+                System.out.println(pelicula);
             }
 
         } catch (SQLException ex) {

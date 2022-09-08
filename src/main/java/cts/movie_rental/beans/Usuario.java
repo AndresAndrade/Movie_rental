@@ -1,6 +1,6 @@
 package cts.movie_rental.beans;
 
-public class Usuarios {
+public class Usuario {
     private String username;
     private String contrasena;
     private String nombre;
@@ -9,7 +9,7 @@ public class Usuarios {
     private double saldo;
     private boolean premium;
 
-    public Usuarios(String username, String contrasena, String nombre, String apellido, String email, double saldo, boolean premium) {
+    public Usuario(String username, String contrasena, String nombre, String apellido, String email, double saldo, boolean premium) {
         this.username = username;
         this.contrasena = contrasena;
         this.nombre = nombre;

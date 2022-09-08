@@ -31,9 +31,13 @@ public class DBConnection {
         return connection;
     }
 
-    public void desconectar() throws SQLException {
+    public void desconectar(){
         if (connection != null) {
-            connection.close();
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());;
+            }
         }
         connection = null;
     }
