@@ -58,4 +58,33 @@ public class UsuarioController implements IUsuarioController{
         }
         return "false";
     }
+
+    @Override
+    public String pedir(String username) {
+        Gson gson = new Gson();
+        DBConnection conn = new DBConnection();
+        String sql = "SELECT * FROM usuarios WHERE username = '" + username + "'";
+
+        try {
+            Statement stm = conn.getConnection().createStatement();
+            ResultSet rs = stm.executeQuery(sql);
+
+            while (rs.next()) {
+                String contrasena = rs.getString("contrasena");
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
+                String email = rs.getString("email");
+                double saldo = rs.getDouble("saldo");
+                boolean premium = rs.getBoolean("premium");
+
+                Usuario usuario = new Usuario(username, contrasena, nombre, apellido, email, saldo, premium);
+                return gson.toJson(usuario);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());;
+        } finally {
+            conn.desconectar();
+        }
+        return "false";
+    }
 }
