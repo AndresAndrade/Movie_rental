@@ -35,7 +35,6 @@ async function getUsuario() {
 }
 
 function getPeliculas(ordenar, orden) {
-
     $.ajax({
         type: "GET",
         dataType: "html",
@@ -46,12 +45,58 @@ function getPeliculas(ordenar, orden) {
         }),
         success: function (result) {
             let parsedResult = JSON.parse(result);
-
             if (parsedResult !== false) {
                 mostrarPeliculas(parsedResult);
             } else {
-                console.log("Error recuperando los datos de las peliculas");
+                console.log("Error recuperando los datos de las peliculas.");
             }
         }
     });
+}
+
+function mostrarPeliculas(peliculas) {
+    let contenido = "";
+    $.each(peliculas, function (index, pelicula) {
+        pelicula = JSON.parse(pelicula);
+        let precio;
+
+        if (pelicula.copias > 0) {
+            if (user.premium) {
+                if (pelicula.novedad) {
+                    precio = (2 - (2 * 0.1));
+                } else {
+                    precio = (1 - (1 * 0.1));
+                }
+            } else {
+                if (pelicula.novedad) {
+                    precio = 2;
+                } else {
+                    precio = 1;
+                }
+            }
+
+            contenido += '<tr><th scope="row">' + pelicula.id + '</th>' +
+                '<td>' + pelicula.titulo + '</td>' +
+                '<td>' + pelicula.genero + '</td>' +
+                '<td>' + pelicula.autor + '</td>' +
+                '<td>' + pelicula.copias + '</td>' +
+                '<td><input type="checkbox" name="novedad" id="novedad' + pelicula.id + '" disabled ';
+
+            if (pelicula.novedad) {
+                contenido += 'checked'
+            }
+
+            contenido += '></td>' +
+                '<td>' + precio + '</td>' +
+                '<td><button onclick="alquilarPelicula(' + pelicula.id + ',' + precio + ');" class="btn btn-success" ';
+
+            if (user.saldo < precio) {
+                contenido += ' disabled ';
+            }
+
+            contenido += '>Reservar</button></td></tr>'
+        }
+    });
+
+    $("#peliculas-tbody").html(contenido);
 }

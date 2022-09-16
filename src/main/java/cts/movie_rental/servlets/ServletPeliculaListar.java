@@ -10,7 +10,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ServletPeliculaListar", value = "/ServletPeliculaListar")
 public class ServletPeliculaListar extends HttpServlet {
-
+    
+    private static final long serialVersionUID = 1L;
     public ServletPeliculaListar() {
         super();
     }

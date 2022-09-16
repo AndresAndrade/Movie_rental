@@ -19,10 +19,10 @@ public class PeliculaController implements IPeliculaController{
         String sql = "SELECT * FROM peliculas";
 
         if (ordenar == true) {
-            sql += " ORDER BY genero" + orden;
+            sql += " ORDER BY genero " + orden;
         }
 
-        List<String> listPeliculas = new ArrayList<>();
+        List<String> peliculas = new ArrayList<>();
 
 
         try {
@@ -37,7 +37,7 @@ public class PeliculaController implements IPeliculaController{
                 boolean novedad = rs.getBoolean("novedad");
 
                 Pelicula pelicula = new Pelicula(id, titulo, genero, autor, copias, novedad);
-                listPeliculas.add(gson.toJson(pelicula));
+                peliculas.add(gson.toJson(pelicula));
             }
         } catch (SQLException e) {
             System.out.println("ERROR " + e.getMessage());;
@@ -45,6 +45,6 @@ public class PeliculaController implements IPeliculaController{
             conn.desconectar();
         }
 
-        return gson.toJson(listPeliculas);
+        return gson.toJson(peliculas);
     }
 }
