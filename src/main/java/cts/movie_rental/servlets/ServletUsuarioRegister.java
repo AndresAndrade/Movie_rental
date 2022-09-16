@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "ServletUsuarioRegister", value = "/ServletUsuarioRegister")
 public class ServletUsuarioRegister extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
     public ServletUsuarioRegister() {
         super();
     }
