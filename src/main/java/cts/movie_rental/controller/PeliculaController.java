@@ -7,7 +7,9 @@ import cts.movie_rental.connection.DBConnection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PeliculaController implements IPeliculaController{
@@ -46,5 +48,49 @@ public class PeliculaController implements IPeliculaController{
         }
 
         return gson.toJson(peliculas);
+    }
+
+    @Override
+    public String alquilar(int id, String username) {
+
+        Timestamp fecha = new Timestamp(new Date().getTime());
+        DBConnection conn = new DBConnection();
+        String sql = "INSERT INTO alquiler VALUES('" + id + "', '" + username + "', '" + fecha + "')";
+
+        try {
+            Statement stm = conn.getConnection().createStatement();
+            stm.executeUpdate(sql);
+
+            String modificar = modificar(id);
+
+            if (modificar.equals("true")) {
+                return "true";
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERROR: " + e);;
+        } finally {
+            conn.desconectar();
+        }
+
+        return "false";
+    }
+
+    @Override
+    public String modificar(int id) {
+        DBConnection conn = new DBConnection();
+        String sql = "UPDATE peliculas SET copias = (copias - 1) WHERE id = " + id;
+
+        try {
+            Statement stm = conn.getConnection().createStatement();
+            stm.executeUpdate(sql);
+            return "true";
+        } catch (SQLException e) {
+            System.out.println("ERROR: " + e);;
+        } finally {
+            conn.desconectar();
+        }
+
+        return "false";
     }
 }
