@@ -93,4 +93,46 @@ public class PeliculaController implements IPeliculaController{
 
         return "false";
     }
+
+    @Override
+    public String devolver(int id, String username) {
+
+        DBConnection con = new DBConnection();
+        String sql = "DELETE FROM alquiler WHERE id = " + id + " AND username = '" + username + "' LIMIT 1";
+
+        try {
+            Statement st = con.getConnection().createStatement();
+            st.executeUpdate(sql); //Aqui corregi el executeQuery por el executeUpdate
+
+            this.sumarCantidad(id);
+
+            return "true";
+        } catch (Exception ex) {
+            System.out.println("ERROR ELIMINAR: " + ex);
+        } finally {
+            con.desconectar();
+        }
+        return "false";
+    }
+
+    @Override
+    public String sumarCantidad(int id) {
+
+        DBConnection con = new DBConnection();
+
+        String sql = "UPDATE peliculas SET copias = (SELECT copias FROM peliculas WHERE id = "
+                + id + ") + 1 WHERE id = " + id;
+
+        try {
+            Statement st = con.getConnection().createStatement();
+            st.executeUpdate(sql);
+
+            return "true";
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            con.desconectar();
+        }
+        return "false";
+    }
 }

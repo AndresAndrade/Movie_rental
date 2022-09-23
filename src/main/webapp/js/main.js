@@ -7,8 +7,8 @@ $(document).ready(function () {
     });
 
     getUsuario().then(function () {
-        //$("#mi-perfil-btn").attr("href", "profile.html?username=" + username);
-        $("#user-saldo").html(user.saldo.toFixed(0) + "$");
+        $("#mi-perfil-btn").attr("href", "profile.html?username=" + username);
+        $("#user-saldo").html("$" + user.saldo.toFixed(0));
         getPeliculas(false, "ASC");
         $("#ordernar-genero").click(ordenarPeliculas);
     });
