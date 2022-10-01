@@ -65,9 +65,7 @@ function getAlquiladas(username) {
             let parsedResult = JSON.parse(result);
 
             if (parsedResult !== false) {
-
                 mostrarHistorial(parsedResult)
-
             } else {
                 console.log("Error recuperando los datos de las reservas");
             }

@@ -19,9 +19,9 @@ public class AlquilerController implements IAlquilerController {
 
         DBConnection con = new DBConnection();
 
-        String sql = "Select l.id, l.titulo, l.genero, l.novedad, a.fecha from peliculas l "
-                + "inner join alquiler a on l.id = a.id inner join usuarios u on a.username = u.username "
-                + "where a.username = '" + username + "'";
+        String sql = "SELECT p.id, titulo, genero, novedad, fecha FROM peliculas p "
+                + "INNER JOIN alquiler a USING(id) INNER JOIN usuarios u USING(username) "
+                + "WHERE a.username = '" + username + "'";
 
         List<String> alquileres = new ArrayList<String>();
 
@@ -37,7 +37,7 @@ public class AlquilerController implements IAlquilerController {
                 boolean novedad = rs.getBoolean("novedad");
                 Date fechaAlquiler = rs.getDate("fecha");
 
-                Alquiler alquiler = new Alquiler(id, titulo, fechaAlquiler, novedad, genero);
+                Alquiler alquiler = new Alquiler(id,fechaAlquiler, novedad, genero, titulo);
 
                 alquileres.add(gson.toJson(alquiler));
             }

@@ -63,15 +63,15 @@ function mostrarPeliculas(peliculas) {
         if (pelicula.copias > 0) {
             if (user.premium) {
                 if (pelicula.novedad) {
-                    precio = (2 - (2 * 0.1));
+                    precio = 7500 * 0.75 ;
                 } else {
-                    precio = (1 - (1 * 0.1));
+                    precio = 5000 * 0.75;
                 }
             } else {
                 if (pelicula.novedad) {
-                    precio = 2;
+                    precio = 7500;
                 } else {
-                    precio = 1;
+                    precio = 5000;
                 }
             }
 
